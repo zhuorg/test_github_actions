@@ -24,8 +24,27 @@ jobs:
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: "test_github_actions_macos_${{github.sha}}"
-                    path: build/test_github_actions
+                    name: hello_darwin_${{github.sha}}
+                    path: build/hello_darwin
+
+    build-linux:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+                with:
+                    submodules: recursive
+            -   name: Build
+                run: |
+                    mkdir build
+                    cd build
+                    cmake -DCMAKE_BUILD_TYPE=Release ..
+                    make -j$(nproc)
+            -   name: Upload Artifact
+                uses: actions/upload-artifact@v2
+                with:
+                    name: hello_linux_${{github.sha}}
+                    path: build/hello_linux
 
     build-windows-x86:
         runs-on: windows-latest
@@ -45,8 +64,8 @@ jobs:
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: "test_github_actions_windows_x86_${{github.sha}}.exe"
-                    path: build/test_github_actions.exe
+                    name: hello_windows_x86_${{github.sha}}
+                    path: build/hello_windows_x86
 
     build-windows-x64:
         runs-on: windows-latest
@@ -66,5 +85,5 @@ jobs:
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: "test_github_actions_windows_x64_${{github.sha}}.exe"
-                    path: build/test_github_actions.exe
+                    name: hello_windows_x64_${{github.sha}}
+                    path: build/hello_windows_x64

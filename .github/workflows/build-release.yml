@@ -23,52 +23,77 @@ jobs:
                 uses: svenstaro/upload-release-action@v1-release
                 with:
                     repo_token: ${{ secrets.GITHUB_TOKEN }}
-                    file: build/test_github_actions
+                    file: build/hello_darwin
                     tag: ${{ github.ref }}
                     file_glob: true
                     overwrite: true
 
-#    build-windows-x86:
-#        runs-on: windows-latest
-#        steps:
-#            -   name: Checkout
-#                uses: actions/checkout@v2
-#                with:
-#                    submodules: recursive
-#            -   name: Build
-#                shell: cmd
-#                run: |
-#                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat"
-#                    md build
-#                    cd build
-#                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
-#                    nmake
-#            -   name: Upload Release Binary
-#                    uses: svenstaro/upload-release-action@v1-release
-#                    with:
-#                        repo_token: ${{ secrets.GITHUB_TOKEN }}
-#                        file: build/test_github_actions
-#                        tag: ${{ github.ref }}
-#                        file_glob: true
-#                        overwrite: true
-#
-#    build-windows-x64:
-#        runs-on: windows-latest
-#        steps:
-#            -   name: Checkout
-#                uses: actions/checkout@v2
-#                with:
-#                    submodules: recursive
-#            -   name: Build
-#                shell: cmd
-#                run: |
-#                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-#                    md build
-#                    cd build
-#                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
-#                    nmake
-#            -   name: Upload Artifact
-#                uses: actions/upload-artifact@v2
-#                with:
-#                    name: "test_github_actions_windows_x64_${{github.ref}}.exe"
-#                    path: build/test_github_actions.exe
+    build-linux:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+                with:
+                    submodules: recursive
+            -   name: Build
+                run: |
+                    mkdir build
+                    cd build
+                    cmake -DCMAKE_BUILD_TYPE=Release ..
+                    make -j$(nproc)
+            -   name: Upload Release Binary
+                uses: svenstaro/upload-release-action@v1-release
+                with:
+                    repo_token: ${{ secrets.GITHUB_TOKEN }}
+                    file: build/hello_linux
+                    tag: ${{ github.ref }}
+                    file_glob: true
+                    overwrite: true
+
+    build-windows-x86:
+        runs-on: windows-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+                with:
+                    submodules: recursive
+            -   name: Build
+                shell: cmd
+                run: |
+                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat"
+                    md build
+                    cd build
+                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
+                    nmake
+            -   name: Upload Release Binary
+                uses: svenstaro/upload-release-action@v1-release
+                with:
+                    repo_token: ${{ secrets.GITHUB_TOKEN }}
+                    file: build/hello_windows_x86
+                    tag: ${{ github.ref }}
+                    file_glob: true
+                    overwrite: true
+
+    build-windows-x64:
+        runs-on: windows-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+                with:
+                    submodules: recursive
+            -   name: Build
+                shell: cmd
+                run: |
+                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+                    md build
+                    cd build
+                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
+                    nmake
+            -   name: Upload Release Binary
+                uses: svenstaro/upload-release-action@v1-release
+                with:
+                    repo_token: ${{ secrets.GITHUB_TOKEN }}
+                    file: build/hello_windows_x64
+                    tag: ${{ github.ref }}
+                    file_glob: true
+                    overwrite: true

@@ -7,10 +7,10 @@ set(CMAKE_CXX_STANDARD 14)
 if (APPLE)
     set(TARGET_NAME "hello_darwin")
 elseif (WIN32)
-    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    if(CMAKE_SIZEOF_VOID_P EQUAL "8")
         # 64 bits
         set(TARGET_NAME "hello_windows_x64")
-    elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    elseif(CMAKE_SIZEOF_VOID_P EQUAL "4")
         # 32 bits
         set(TARGET_NAME "hello_windows_x86")
     endif()

@@ -20,13 +20,13 @@ jobs:
                     cmake -DCMAKE_BUILD_TYPE=Release ..
                     make -j$(nproc)
             -   name: Upload Release Binary
-                    uses: svenstaro/upload-release-action@v1-release
-                    with:
-                        repo_token: ${{ secrets.GITHUB_TOKEN }}
-                        file: build/test_github_actions
-                        tag: ${{ github.ref }}
-                        file_glob: true
-                        overwrite: true
+                uses: svenstaro/upload-release-action@v1-release
+                with:
+                    repo_token: ${{ secrets.GITHUB_TOKEN }}
+                    file: build/test_github_actions
+                    tag: ${{ github.ref }}
+                    file_glob: true
+                    overwrite: true
 
 #    build-windows-x86:
 #        runs-on: windows-latest

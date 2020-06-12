@@ -1,10 +1,8 @@
 name: Build Release
 
 on:
-    push:
-        branches: [ master ]
-    pull_request:
-        branches: [ master ]
+    release:
+        types: [released]
 
 jobs:
     build-darwin:
@@ -21,50 +19,56 @@ jobs:
                     cd build
                     cmake -DCMAKE_BUILD_TYPE=Release ..
                     make -j$(nproc)
-            -   name: Upload Artifact
-                uses: actions/upload-artifact@v2
-                with:
-                    name: "test_github_actions_macos_${{github.ref}}"
-                    path: build/test_github_actions
+            -   name: Upload Release Binary
+                    uses: svenstaro/upload-release-action@v1-release
+                    with:
+                        repo_token: ${{ secrets.GITHUB_TOKEN }}
+                        file: build/test_github_actions
+                        tag: ${{ github.ref }}
+                        file_glob: true
+                        overwrite: true
 
-    build-windows-x86:
-        runs-on: windows-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v2
-                with:
-                    submodules: recursive
-            -   name: Build
-                shell: cmd
-                run: |
-                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat"
-                    md build
-                    cd build
-                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
-                    nmake
-            -   name: Upload Artifact
-                uses: actions/upload-artifact@v2
-                with:
-                    name: "test_github_actions_windows_x86_${{github.ref}}.exe"
-                    path: build/test_github_actions.exe
-
-    build-windows-x64:
-        runs-on: windows-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v2
-                with:
-                    submodules: recursive
-            -   name: Build
-                shell: cmd
-                run: |
-                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-                    md build
-                    cd build
-                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
-                    nmake
-            -   name: Upload Artifact
-                uses: actions/upload-artifact@v2
-                with:
-                    name: "test_github_actions_windows_x64_${{github.ref}}.exe"
-                    path: build/test_github_actions.exe
+#    build-windows-x86:
+#        runs-on: windows-latest
+#        steps:
+#            -   name: Checkout
+#                uses: actions/checkout@v2
+#                with:
+#                    submodules: recursive
+#            -   name: Build
+#                shell: cmd
+#                run: |
+#                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat"
+#                    md build
+#                    cd build
+#                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
+#                    nmake
+#            -   name: Upload Release Binary
+#                    uses: svenstaro/upload-release-action@v1-release
+#                    with:
+#                        repo_token: ${{ secrets.GITHUB_TOKEN }}
+#                        file: build/test_github_actions
+#                        tag: ${{ github.ref }}
+#                        file_glob: true
+#                        overwrite: true
+#
+#    build-windows-x64:
+#        runs-on: windows-latest
+#        steps:
+#            -   name: Checkout
+#                uses: actions/checkout@v2
+#                with:
+#                    submodules: recursive
+#            -   name: Build
+#                shell: cmd
+#                run: |
+#                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+#                    md build
+#                    cd build
+#                    cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
+#                    nmake
+#            -   name: Upload Artifact
+#                uses: actions/upload-artifact@v2
+#                with:
+#                    name: "test_github_actions_windows_x64_${{github.ref}}.exe"
+#                    path: build/test_github_actions.exe

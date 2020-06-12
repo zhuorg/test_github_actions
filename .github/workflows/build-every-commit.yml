@@ -24,7 +24,7 @@ jobs:
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: test_github_actions_macos_${{GITHUB_SHA}}
+                    name: "test_github_actions_macos_${{GITHUB_SHA}}"
                     path: build/test_github_actions
 
     build-windows-x86:
@@ -45,7 +45,7 @@ jobs:
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: test_github_actions_windows_x86_${{GITHUB_SHA}}.exe
+                    name: "test_github_actions_windows_x86_${{GITHUB_SHA}}.exe"
                     path: build/test_github_actions.exe
 
     build-windows-x64:
@@ -66,5 +66,5 @@ jobs:
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: test_github_actions_windows_x64_${{GITHUB_SHA}}.exe
+                    name: "test_github_actions_windows_x64_${{GITHUB_SHA}}.exe"
                     path: build/test_github_actions.exe

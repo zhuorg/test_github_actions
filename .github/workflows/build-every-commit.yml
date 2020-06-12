@@ -65,7 +65,7 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     name: hello_windows_x86_${{github.sha}}
-                    path: build/hello_windows_x86
+                    path: build/hello_windows_x86.exe
 
     build-windows-x64:
         runs-on: windows-latest
@@ -86,4 +86,4 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     name: hello_windows_x64_${{github.sha}}
-                    path: build/hello_windows_x64
+                    path: build/hello_windows_x64.exe

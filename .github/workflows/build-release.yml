@@ -69,7 +69,7 @@ jobs:
                 uses: svenstaro/upload-release-action@v1-release
                 with:
                     repo_token: ${{ secrets.GITHUB_TOKEN }}
-                    file: build/hello_windows_x86
+                    file: build/hello_windows_x86.exe
                     tag: ${{ github.ref }}
                     file_glob: true
                     overwrite: true
@@ -93,7 +93,7 @@ jobs:
                 uses: svenstaro/upload-release-action@v1-release
                 with:
                     repo_token: ${{ secrets.GITHUB_TOKEN }}
-                    file: build/hello_windows_x64
+                    file: build/hello_windows_x64.exe
                     tag: ${{ github.ref }}
                     file_glob: true
                     overwrite: true

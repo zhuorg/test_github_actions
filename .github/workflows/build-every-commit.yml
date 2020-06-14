@@ -47,7 +47,7 @@ jobs:
                     path: build/hello_linux
 
     build-windows-x86:
-        runs-on: windows-2019
+        runs-on: windows-latest
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
@@ -68,7 +68,7 @@ jobs:
                     path: build/hello_windows_x86.exe
 
     build-windows-x64:
-        runs-on: windows-2019
+        runs-on: windows-latest
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2

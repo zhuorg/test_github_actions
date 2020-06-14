@@ -47,7 +47,7 @@ jobs:
                     path: build/hello_linux
 
     build-windows-x86:
-        runs-on: windows-latest
+        runs-on: windows-2019
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
@@ -59,9 +59,7 @@ jobs:
                     call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat"
                     md build
                     cd build
-                    echo %cd%
                     cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
-                    echo %cd%
                     nmake
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
@@ -70,7 +68,7 @@ jobs:
                     path: build/hello_windows_x86.exe
 
     build-windows-x64:
-        runs-on: windows-latest
+        runs-on: windows-2019
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2

@@ -22,7 +22,7 @@ elseif (WIN32)
         set(TARGET_NAME "hello_windows_x86")
     endif()
 
-    add_executable(${TARGET_NAME} main.cpp "${CMAKE_CURRENT_BINARY_DIR}/win32.rc" "${CMAKE_CURRENT_BINARY_DIR}/icon.ico")
+    add_executable(${TARGET_NAME} main.cpp "${CMAKE_CURRENT_BINARY_DIR}/win32.rc")
 
 elseif (UNIX AND NOT APPLE)
 

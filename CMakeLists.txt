@@ -11,7 +11,6 @@ if (APPLE)
 
 elseif (WIN32)
 
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/assets/icon.ico" "${CMAKE_CURRENT_BINARY_DIR}/icon.ico" COPYONLY)
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/win32.rc.in" "${CMAKE_CURRENT_BINARY_DIR}/win32.rc" @ONLY)
 
     if(CMAKE_SIZEOF_VOID_P EQUAL "8")
@@ -22,7 +21,8 @@ elseif (WIN32)
         set(TARGET_NAME "hello_windows_x86")
     endif()
 
-    add_executable(${TARGET_NAME} main.cpp "${CMAKE_CURRENT_BINARY_DIR}/win32.rc" "${CMAKE_CURRENT_BINARY_DIR}/icon.ico")
+    string(REPLACE "/" "\\" ICON_FILE "${CMAKE_CURRENT_SOURCE_DIR}/assets/icon.ico")
+    add_executable(${TARGET_NAME} main.cpp "${CMAKE_CURRENT_BINARY_DIR}/win32.rc")
 
 elseif (UNIX AND NOT APPLE)
 

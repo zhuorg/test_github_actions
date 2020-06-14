@@ -20,6 +20,7 @@ jobs:
                     mkdir build
                     cd build
                     cmake -DCMAKE_BUILD_TYPE=Release ..
+                    echo !!! $(nproc)
                     make -j$(nproc)
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2

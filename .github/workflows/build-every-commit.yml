@@ -7,45 +7,45 @@ on:
         branches: [ master ]
 
 jobs:
-    build-darwin:
-        runs-on: macOS-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v2
-                with:
-                    submodules: recursive
-            -   name: Build
-                run: |
-                    sudo xcode-select -s /Library/Developer/CommandLineTools
-                    mkdir build
-                    cd build
-                    cmake -DCMAKE_BUILD_TYPE=Release ..
-                    echo !!! $(nproc)
-                    make -j$(nproc)
-            -   name: Upload Artifact
-                uses: actions/upload-artifact@v2
-                with:
-                    name: hello_darwin_${{github.sha}}
-                    path: build/hello_darwin
+#     build-darwin:
+#         runs-on: macOS-latest
+#         steps:
+#             -   name: Checkout
+#                 uses: actions/checkout@v2
+#                 with:
+#                     submodules: recursive
+#             -   name: Build
+#                 run: |
+#                     sudo xcode-select -s /Library/Developer/CommandLineTools
+#                     mkdir build
+#                     cd build
+#                     cmake -DCMAKE_BUILD_TYPE=Release ..
+#                     echo !!! $(nproc)
+#                     make -j$(nproc)
+#             -   name: Upload Artifact
+#                 uses: actions/upload-artifact@v2
+#                 with:
+#                     name: hello_darwin_${{github.sha}}
+#                     path: build/hello_darwin
 
-    build-linux:
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v2
-                with:
-                    submodules: recursive
-            -   name: Build
-                run: |
-                    mkdir build
-                    cd build
-                    cmake -DCMAKE_BUILD_TYPE=Release ..
-                    make -j$(nproc)
-            -   name: Upload Artifact
-                uses: actions/upload-artifact@v2
-                with:
-                    name: hello_linux_${{github.sha}}
-                    path: build/hello_linux
+#     build-linux:
+#         runs-on: ubuntu-latest
+#         steps:
+#             -   name: Checkout
+#                 uses: actions/checkout@v2
+#                 with:
+#                     submodules: recursive
+#             -   name: Build
+#                 run: |
+#                     mkdir build
+#                     cd build
+#                     cmake -DCMAKE_BUILD_TYPE=Release ..
+#                     make -j$(nproc)
+#             -   name: Upload Artifact
+#                 uses: actions/upload-artifact@v2
+#                 with:
+#                     name: hello_linux_${{github.sha}}
+#                     path: build/hello_linux
 
     build-windows-x86:
         runs-on: windows-latest
